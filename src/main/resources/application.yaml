@@ -24,7 +24,7 @@ openapi:
   version: v1.0.0
   description: API service
   serverUrl: ${OPENAPI_SERVER_URL:http://localhost:8080/movie_theater}
-  serverName: ${OPENAPI_SERVER_NAME:Test Server}
+  serverName: ${OPENAPI_SERVER_NAME:Localhost Dev Server}
 
 springdoc:
   api-docs:

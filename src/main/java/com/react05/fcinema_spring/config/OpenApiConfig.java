@@ -1,4 +1,4 @@
-package com.react05.fcinema_spring.cofig;
+package com.react05.fcinema_spring.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
