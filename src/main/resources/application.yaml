@@ -1,0 +1,40 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /movie_theater
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/movie_theater}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:create}
+      show-sql: ${JPA_SHOW_SQL:true}
+
+jwt:
+  signerKey: ${JWT_SIGNER_KEY:1Ln55lu2teW6wbb2nd3sLkHUQgql0e/avY0TCtXgEkERCDXm6tB6m64jXVXf43jn}
+  valid-duration: ${JWT_VALID_DURATION:36000}
+  refreshable-duration: ${JWT_REFRESHABLE_DURATION:360000}
+
+openapi:
+  title: API document
+  version: v1.0.0
+  description: API service
+  serverUrl: ${OPENAPI_SERVER_URL:http://localhost:8080/movie_theater}
+  serverName: ${OPENAPI_SERVER_NAME:Test Server}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    default-consumes-media-type: multipart/form-data
+    default-produces-media-type: application/json
