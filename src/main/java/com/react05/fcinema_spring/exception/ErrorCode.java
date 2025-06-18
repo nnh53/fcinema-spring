@@ -25,7 +25,8 @@ public enum ErrorCode {
     PROMOTION_NOT_FOUND(1009, "Không tìm thấy khuyến mãi", HttpStatus.NOT_FOUND),
     PROMOTION_EXISTED(1010, "Khuyến mãi đã tồn tại", HttpStatus.BAD_REQUEST),
     ROOM_NOT_FOUND(1011, "Không tìm thấy phòng chiếu", HttpStatus.NOT_FOUND),
-    SEAT_NOT_FOUND(1012, "Không tìm thấy ghế", HttpStatus.NOT_FOUND);
+    SEAT_NOT_FOUND(1012, "Không tìm thấy ghế", HttpStatus.NOT_FOUND),
+    INVALID_SEAT_CAPACITY(1013, "Số lượng ghế có thể sử dụng không khớp với sức chứa phòng", HttpStatus.BAD_REQUEST);
     int code;
     String message;
     HttpStatusCode httpStatusCode;

@@ -22,7 +22,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal=true)
 @RequiredArgsConstructor
 public class UserController {
-    UserServiceImpl userService;
+    UserService userService;
     @PostMapping
     public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(userService.createUser(userRequest));

@@ -26,7 +26,13 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
         return ResponseEntity.badRequest().body(apiResponse);
     }
-
+    @ExceptionHandler(value = AppException.class)
+    ResponseEntity<ApiResponse> handlingApptimeException(AppException exception){
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setCode(exception.getErrorCode().getCode());
+        apiResponse.setMessage(exception.getErrorCode().getMessage());
+        return ResponseEntity.badRequest().body(apiResponse);
+    }
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<Map<String, List<ApiResponse>>> handlingValidationException(MethodArgumentNotValidException exception) {
         List<ApiResponse> errors = exception.getBindingResult().getFieldErrors().stream().map(fieldError -> {
