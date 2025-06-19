@@ -7,6 +7,7 @@ import com.react05.fcinema_spring.mapper.UserMapper;
 import com.react05.fcinema_spring.model.request.User.UserRequest;
 import com.react05.fcinema_spring.model.request.User.UserUpdate;
 import com.react05.fcinema_spring.model.response.ApiResponse;
+import com.react05.fcinema_spring.model.response.Authentication.UserResponse;
 import com.react05.fcinema_spring.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ApiResponse<User> createUser(UserRequest userRequest) {
+    public ApiResponse<UserResponse> createUser(UserRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
@@ -37,31 +38,31 @@ public class UserServiceImpl implements UserService {
         user.setIsActive(false);
         user.setLoyaltyPoint(0);
         User savedUser = userRepository.save(user);
-        return ApiResponse.<User>builder()
+        return ApiResponse.<UserResponse>builder()
                 .code(200)
                 .message("User created successfully")
-                .result(savedUser)
+                .result(userMapper.toUserResponse(savedUser))
                 .build();
     }
 
     @Override
-    public ApiResponse<List<User>> findAllUsers() {
+    public ApiResponse<List<UserResponse>> findAllUsers() {
         List<User> users = userRepository.findAll();
-        return ApiResponse.<List<User>>builder()
+        return ApiResponse.<List<UserResponse>>builder()
                 .code(200)
                 .message("All users fetched successfully")
-                .result(users)
+                .result(userMapper.toUserResponseList(users))
                 .build();
     }
 
     @Override
-    public ApiResponse<User> getUserById(String id) {
+    public ApiResponse<UserResponse> getUserById(String id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return ApiResponse.<User>builder()
+        return ApiResponse.<UserResponse>builder()
                 .code(200)
                 .message("User fetched successfully")
-                .result(user)
+                .result(userMapper.toUserResponse(user))
                 .build();
     }
 

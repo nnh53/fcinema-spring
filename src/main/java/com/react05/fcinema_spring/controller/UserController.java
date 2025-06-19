@@ -4,6 +4,7 @@ import com.react05.fcinema_spring.entity.User;
 import com.react05.fcinema_spring.model.request.User.UserRequest;
 import com.react05.fcinema_spring.model.request.User.UserUpdate;
 import com.react05.fcinema_spring.model.response.ApiResponse;
+import com.react05.fcinema_spring.model.response.Authentication.UserResponse;
 import com.react05.fcinema_spring.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,7 +36,7 @@ public class UserController {
                     content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     @PostMapping
-    public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody UserRequest userRequest) {
+    public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody UserRequest userRequest) {
         var result = userService.createUser(userRequest);
         return ResponseEntity.ok(result);
     }
@@ -48,7 +49,7 @@ public class UserController {
                     content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     @GetMapping()
-    public ResponseEntity<ApiResponse<List<User>>> getUsers() {
+    public ResponseEntity<ApiResponse<List<UserResponse>>> getUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
@@ -62,7 +63,7 @@ public class UserController {
                     content = @Content(schema = @Schema(implementation = ApiResponse.class)))
     })
     @GetMapping("/{userId}")
-    public ResponseEntity<ApiResponse<User>> getUser(@PathVariable String userId) {
+    public ResponseEntity<ApiResponse<UserResponse>> getUser(@PathVariable String userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
 
