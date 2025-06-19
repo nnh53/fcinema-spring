@@ -9,10 +9,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdate {
-    String fullName;
-    String phone;
-    String address;
-    String avatar;
-    String role;
-    Boolean active;
+  String fullName;
+  String phone;
+  String address;
+  String avatar;
+  String role;
+  Boolean active;
 }

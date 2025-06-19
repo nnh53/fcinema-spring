@@ -1,9 +1,8 @@
 package com.react05.fcinema_spring.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Data
@@ -12,26 +11,28 @@ import java.time.LocalDateTime;
 @Builder
 @ToString(exclude = {"movie", "room"})
 public class Showtime {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+  @ManyToOne
+  @JoinColumn(name = "movie_id")
+  private Movie movie;
 
-    private LocalDateTime showDateTime;
+  private LocalDateTime showDateTime;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private CinemaRoom room;
+  @ManyToOne
+  @JoinColumn(name = "room_id")
+  private CinemaRoom room;
 
-    private LocalDateTime endDateTime;
+  private LocalDateTime endDateTime;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+  @Enumerated(EnumType.STRING)
+  private Status status;
 
-    public enum Status {
-        SCHEDULE, SCREENING, COMPLETED
-    }
+  public enum Status {
+    SCHEDULE,
+    SCREENING,
+    COMPLETED
+  }
 }
