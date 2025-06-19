@@ -15,9 +15,9 @@ import lombok.experimental.FieldDefaults;
 @Schema(name="CustomAPIResponse")
 public class ApiResponse<T> {
     @Builder.Default
-    @Schema(description = "HTTP status code", example = "200")
+    @Schema(example = "200")
     int code = 200;
-    @Schema(description = "Error message", example = "Invalid input data")
+    @Schema(example = "Here is your message")
     String message;
     @Schema(description = "Result")
     T result;
