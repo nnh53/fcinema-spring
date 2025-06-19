@@ -1,6 +1,7 @@
 package com.react05.fcinema_spring.controller;
 
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieRequest;
+import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieUpdateRequest;
 import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.PageResponse;
@@ -44,7 +45,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<MovieResponse>> update(@PathVariable Integer id, @RequestBody MovieRequest request) {
+    public ResponseEntity<ApiResponse<MovieResponse>> update(@PathVariable Integer id, @Valid @RequestBody MovieUpdateRequest request) {
         return ResponseEntity.ok(movieService.updateMovie(id, request));
     }
 

@@ -2,6 +2,7 @@ package com.react05.fcinema_spring.mapper;
 
 import com.react05.fcinema_spring.entity.Promotion;
 import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
+import com.react05.fcinema_spring.model.request.Promotion.PromotionUpdateRequest;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -13,5 +14,5 @@ public interface PromotionMapper {
 
     PromotionResponse toResponse(Promotion promotion);
 
-    void updatePromotion(@MappingTarget Promotion promotion, PromotionRequest request);
+    void updatePromotion(@MappingTarget Promotion promotion, PromotionUpdateRequest request);
 }

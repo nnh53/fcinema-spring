@@ -1,6 +1,7 @@
 package com.react05.fcinema_spring.controller;
 
 import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
+import com.react05.fcinema_spring.model.request.Promotion.PromotionUpdateRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import com.react05.fcinema_spring.service.PromotionService;
@@ -34,7 +35,7 @@ public class PromotionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<PromotionResponse>> updatePromotion(@PathVariable Integer id, @RequestBody PromotionRequest request) {
+    public ResponseEntity<ApiResponse<PromotionResponse>> updatePromotion(@PathVariable Integer id, @RequestBody PromotionUpdateRequest request) {
         return ResponseEntity.ok(promotionService.updatePromotion(id, request));
     }
 

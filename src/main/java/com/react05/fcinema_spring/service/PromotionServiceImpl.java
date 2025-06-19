@@ -5,6 +5,7 @@ import com.react05.fcinema_spring.exception.AppException;
 import com.react05.fcinema_spring.exception.ErrorCode;
 import com.react05.fcinema_spring.mapper.PromotionMapper;
 import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
+import com.react05.fcinema_spring.model.request.Promotion.PromotionUpdateRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import com.react05.fcinema_spring.repository.PromotionRepository;
@@ -59,7 +60,7 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     @Transactional
 
-    public ApiResponse<PromotionResponse> updatePromotion(Integer id, PromotionRequest request) {
+    public ApiResponse<PromotionResponse> updatePromotion(Integer id, PromotionUpdateRequest request) {
         Promotion promotion = promotionRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.PROMOTION_NOT_FOUND));
         promotionMapper.updatePromotion(promotion, request);

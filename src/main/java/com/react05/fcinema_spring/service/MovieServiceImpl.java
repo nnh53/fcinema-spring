@@ -5,6 +5,7 @@ import com.react05.fcinema_spring.exception.AppException;
 import com.react05.fcinema_spring.exception.ErrorCode;
 import com.react05.fcinema_spring.mapper.MovieMapper;
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieRequest;
+import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieUpdateRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.PageResponse;
@@ -112,7 +113,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    public ApiResponse<MovieResponse> updateMovie(Integer id, MovieRequest request) {
+    public ApiResponse<MovieResponse> updateMovie(Integer id, MovieUpdateRequest request) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.MOVIE_NOT_FOUND));
 

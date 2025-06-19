@@ -3,6 +3,7 @@ package com.react05.fcinema_spring.mapper;
 
 import com.react05.fcinema_spring.entity.Movie;
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieRequest;
+import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieUpdateRequest;
 import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,5 +22,5 @@ public interface MovieMapper {
 
     List<MovieResponse> toResponseList(List<Movie> movies);
 
-    void updateMovie(@MappingTarget Movie entity, MovieRequest request);
+    void updateMovie(@MappingTarget Movie entity, MovieUpdateRequest request);
 }

@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(name="CustomAPIResponse")
 public class ApiResponse<T> {
+    @Builder.Default
     @Schema(description = "HTTP status code", example = "200")
     int code = 200;
     @Schema(description = "Error message", example = "Invalid input data")
