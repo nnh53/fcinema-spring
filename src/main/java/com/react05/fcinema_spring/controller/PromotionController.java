@@ -2,12 +2,11 @@ package com.react05.fcinema_spring.controller;
 
 import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.PromotionResponse;
+import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import com.react05.fcinema_spring.service.PromotionService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

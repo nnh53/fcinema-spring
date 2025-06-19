@@ -3,6 +3,7 @@ package com.react05.fcinema_spring.exception;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,14 +25,15 @@ public class GlobalExceptionHandler {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
         apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
-        return ResponseEntity.badRequest().body(apiResponse);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
     }
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse> handlingApptimeException(AppException exception){
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(exception.getErrorCode().getCode());
         apiResponse.setMessage(exception.getErrorCode().getMessage());
-        return ResponseEntity.badRequest().body(apiResponse);
+        HttpStatusCode status = exception.getErrorCode().getHttpStatusCode();
+        return ResponseEntity.status(status).body(apiResponse);
     }
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<Map<String, List<ApiResponse>>> handlingValidationException(MethodArgumentNotValidException exception) {

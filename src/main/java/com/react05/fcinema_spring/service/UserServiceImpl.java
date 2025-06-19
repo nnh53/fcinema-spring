@@ -7,22 +7,16 @@ import com.react05.fcinema_spring.mapper.UserMapper;
 import com.react05.fcinema_spring.model.request.User.UserRequest;
 import com.react05.fcinema_spring.model.request.User.UserUpdate;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.UserResponse;
 import com.react05.fcinema_spring.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

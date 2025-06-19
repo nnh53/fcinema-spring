@@ -1,9 +1,9 @@
 package com.react05.fcinema_spring.mapper;
 
 import com.react05.fcinema_spring.entity.CinemaRoom;
-import com.react05.fcinema_spring.model.request.CinemaRoomRequest;
-import com.react05.fcinema_spring.model.request.CinemaRoomUpdateRequest;
-import com.react05.fcinema_spring.model.response.CinemaRoomResponse;
+import com.react05.fcinema_spring.model.request.roomAndSeat.CinemaRoomRequest;
+import com.react05.fcinema_spring.model.request.roomAndSeat.CinemaRoomUpdateRequest;
+import com.react05.fcinema_spring.model.response.roomAndSeat.CinemaRoomResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

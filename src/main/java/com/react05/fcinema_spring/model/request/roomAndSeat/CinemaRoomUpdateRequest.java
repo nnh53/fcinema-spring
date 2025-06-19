@@ -1,4 +1,4 @@
-package com.react05.fcinema_spring.model.request;
+package com.react05.fcinema_spring.model.request.roomAndSeat;
 
 import lombok.Data;
 

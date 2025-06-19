@@ -1,10 +1,10 @@
 package com.react05.fcinema_spring.service;
 
 
-import com.react05.fcinema_spring.model.request.CinemaRoomRequest;
-import com.react05.fcinema_spring.model.request.CinemaRoomUpdateRequest;
+import com.react05.fcinema_spring.model.request.roomAndSeat.CinemaRoomRequest;
+import com.react05.fcinema_spring.model.request.roomAndSeat.CinemaRoomUpdateRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.CinemaRoomResponse;
+import com.react05.fcinema_spring.model.response.roomAndSeat.CinemaRoomResponse;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.react05.fcinema_spring.controller;
 
-import com.react05.fcinema_spring.model.request.SeatRequest;
+import com.react05.fcinema_spring.model.request.roomAndSeat.SeatRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.SeatResponse;
+import com.react05.fcinema_spring.model.response.roomAndSeat.SeatResponse;
 import com.react05.fcinema_spring.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -6,7 +6,7 @@ import com.react05.fcinema_spring.exception.ErrorCode;
 import com.react05.fcinema_spring.mapper.PromotionMapper;
 import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.PromotionResponse;
+import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import com.react05.fcinema_spring.repository.PromotionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

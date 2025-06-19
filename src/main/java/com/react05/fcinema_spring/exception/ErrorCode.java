@@ -26,7 +26,14 @@ public enum ErrorCode {
     PROMOTION_EXISTED(1010, "Khuyến mãi đã tồn tại", HttpStatus.BAD_REQUEST),
     ROOM_NOT_FOUND(1011, "Không tìm thấy phòng chiếu", HttpStatus.NOT_FOUND),
     SEAT_NOT_FOUND(1012, "Không tìm thấy ghế", HttpStatus.NOT_FOUND),
-    INVALID_SEAT_CAPACITY(1013, "Số lượng ghế có thể sử dụng không khớp với sức chứa phòng", HttpStatus.BAD_REQUEST);
+    INVALID_SEAT_CAPACITY(1013, "Số lượng ghế có thể sử dụng không khớp với sức chứa phòng", HttpStatus.BAD_REQUEST),
+    MOVIE_NOT_FOUND(1013, "Không tìm thấy phim", HttpStatus.NOT_FOUND),
+    INVALID_STATUS(1014, "Trạng thái không hợp lệ", HttpStatus.BAD_REQUEST),
+    SHOWTIME_NOT_FOUND(1015, "Không tìm thấy lịch chiếu phim", HttpStatus.NOT_FOUND),
+    SHOWTIME_CONFLICT(1016, "Thời gian chiếu bị trùng lặp", HttpStatus.CONFLICT),
+    INVALID_SHOWTIME(1017, "Thời gian chiếu không hợp lệ", HttpStatus.BAD_REQUEST),
+    MOVIE_NOT_AVAILABLE(1018, "Phim không khả dụng trong khoảng thời gian này", HttpStatus.BAD_REQUEST),
+    ROOM_NOT_AVAILABLE(1019, "Phòng không khả dụng trong khoảng thời gian này", HttpStatus.BAD_REQUEST);
     int code;
     String message;
     HttpStatusCode httpStatusCode;

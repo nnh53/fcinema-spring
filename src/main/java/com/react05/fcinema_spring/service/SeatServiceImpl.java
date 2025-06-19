@@ -1,14 +1,13 @@
 package com.react05.fcinema_spring.service;
 
 
-import com.react05.fcinema_spring.entity.CinemaRoom;
 import com.react05.fcinema_spring.entity.Seat;
 import com.react05.fcinema_spring.exception.AppException;
 import com.react05.fcinema_spring.exception.ErrorCode;
 import com.react05.fcinema_spring.mapper.SeatMapper;
-import com.react05.fcinema_spring.model.request.SeatRequest;
+import com.react05.fcinema_spring.model.request.roomAndSeat.SeatRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.SeatResponse;
+import com.react05.fcinema_spring.model.response.roomAndSeat.SeatResponse;
 import com.react05.fcinema_spring.repository.CinemaRoomRepository;
 import com.react05.fcinema_spring.repository.SeatRepository;
 import jakarta.transaction.Transactional;
