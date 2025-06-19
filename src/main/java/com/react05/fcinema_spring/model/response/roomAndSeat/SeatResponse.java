@@ -4,12 +4,11 @@ import lombok.Data;
 
 @Data
 public class SeatResponse {
-    private Integer id;
-    private Integer roomId;
-    private String row;
-    private String column;
-    private String name;
-    private String type;
-    private String status;
+  private Integer id;
+  private Integer roomId;
+  private String row;
+  private String column;
+  private String name;
+  private String type;
+  private String status;
 }
-

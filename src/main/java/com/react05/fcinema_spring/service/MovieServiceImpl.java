@@ -11,138 +11,126 @@ import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.PageResponse;
 import com.react05.fcinema_spring.repository.MovieRepository;
 import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
-    private final MovieRepository movieRepository;
-    private final MovieMapper movieMapper;
+  private final MovieRepository movieRepository;
+  private final MovieMapper movieMapper;
 
-    @Override
-    @Transactional
-    public ApiResponse<MovieResponse> createMovie(MovieRequest request) {
-        Movie movie = movieMapper.toMovie(request);
+  @Override
+  @Transactional
+  public ApiResponse<MovieResponse> createMovie(MovieRequest request) {
+    Movie movie = movieMapper.toMovie(request);
 
-        // Convert string status to enum
-        if (request.getStatus() != null) {
-            try {
-                movie.setStatus(Movie.Status.valueOf(request.getStatus().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new AppException(ErrorCode.INVALID_STATUS);
-            }
-        }
-
-        Movie savedMovie = movieRepository.save(movie);
-        return ApiResponse.<MovieResponse>builder()
-                .code(200)
-                .result(movieMapper.toResponse(savedMovie))
-                .build();
+    // Convert string status to enum
+    if (request.getStatus() != null) {
+      try {
+        movie.setStatus(Movie.Status.valueOf(request.getStatus().toUpperCase()));
+      } catch (IllegalArgumentException e) {
+        throw new AppException(ErrorCode.INVALID_STATUS);
+      }
     }
 
-    @Override
-    public ApiResponse<MovieResponse> getMovie(Integer id) {
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.MOVIE_NOT_FOUND));
-        return ApiResponse.<MovieResponse>builder()
-                .code(200)
-                .result(movieMapper.toResponse(movie))
-                .build();
+    Movie savedMovie = movieRepository.save(movie);
+    return ApiResponse.<MovieResponse>builder()
+        .code(200)
+        .result(movieMapper.toResponse(savedMovie))
+        .build();
+  }
+
+  @Override
+  public ApiResponse<MovieResponse> getMovie(Integer id) {
+    Movie movie =
+        movieRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.MOVIE_NOT_FOUND));
+    return ApiResponse.<MovieResponse>builder()
+        .code(200)
+        .result(movieMapper.toResponse(movie))
+        .build();
+  }
+
+  @Override
+  public ApiResponse<List<MovieResponse>> getAllMovies() {
+    List<Movie> movies = movieRepository.findAll();
+    return ApiResponse.<List<MovieResponse>>builder()
+        .code(200)
+        .result(movieMapper.toResponseList(movies))
+        .build();
+  }
+
+  @Override
+  public ApiResponse<PageResponse<MovieResponse>> getAllMovies(
+      int pageNo, int pageSize, String search, String fromDate, String toDate, String type) {
+    Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+    // Handle null or empty values
+    String searchParam = (search != null && !search.trim().isEmpty()) ? search : null;
+    LocalDate fromDateParam =
+        (fromDate != null && !fromDate.trim().isEmpty()) ? LocalDate.parse(fromDate) : null;
+    LocalDate toDateParam =
+        (toDate != null && !toDate.trim().isEmpty()) ? LocalDate.parse(toDate) : null;
+    String typeParam = (type != null && !type.trim().isEmpty()) ? type : null;
+
+    Page<Movie> moviePage =
+        movieRepository.findMoviesWithFilters(
+            searchParam, fromDateParam, toDateParam, typeParam, pageable);
+
+    List<MovieResponse> content = movieMapper.toResponseList(moviePage.getContent());
+
+    PageResponse<MovieResponse> pageResponse =
+        PageResponse.<MovieResponse>builder()
+            .content(content)
+            .pageNo(moviePage.getNumber())
+            .pageSize(moviePage.getSize())
+            .totalElements(moviePage.getTotalElements())
+            .totalPages(moviePage.getTotalPages())
+            .last(moviePage.isLast())
+            .build();
+
+    return ApiResponse.<PageResponse<MovieResponse>>builder()
+        .code(200)
+        .result(pageResponse)
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public ApiResponse<MovieResponse> updateMovie(Integer id, MovieUpdateRequest request) {
+    Movie movie =
+        movieRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.MOVIE_NOT_FOUND));
+
+    movieMapper.updateMovie(movie, request);
+
+    // Convert string status to enum if provided
+    if (request.getStatus() != null) {
+      try {
+        movie.setStatus(Movie.Status.valueOf(request.getStatus().toUpperCase()));
+      } catch (IllegalArgumentException e) {
+        throw new AppException(ErrorCode.INVALID_STATUS);
+      }
     }
 
-    @Override
-    public ApiResponse<List<MovieResponse>> getAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
-        return ApiResponse.<List<MovieResponse>>builder()
-                .code(200)
-                .result(movieMapper.toResponseList(movies))
-                .build();
+    Movie updatedMovie = movieRepository.save(movie);
+    return ApiResponse.<MovieResponse>builder()
+        .code(200)
+        .result(movieMapper.toResponse(updatedMovie))
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public ApiResponse<Void> deleteMovie(Integer id) {
+    if (!movieRepository.existsById(id)) {
+      throw new AppException(ErrorCode.MOVIE_NOT_FOUND);
     }
-
-    @Override
-    public ApiResponse<PageResponse<MovieResponse>> getAllMovies(
-            int pageNo,
-            int pageSize,
-            String search,
-            String fromDate,
-            String toDate,
-            String type
-    ) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-
-        // Handle null or empty values
-        String searchParam = (search != null && !search.trim().isEmpty()) ? search : null;
-        LocalDate fromDateParam = (fromDate != null && !fromDate.trim().isEmpty()) ? LocalDate.parse(fromDate) : null;
-        LocalDate toDateParam = (toDate != null && !toDate.trim().isEmpty()) ? LocalDate.parse(toDate) : null;
-        String typeParam = (type != null && !type.trim().isEmpty()) ? type : null;
-
-
-        Page<Movie> moviePage = movieRepository.findMoviesWithFilters(
-                searchParam,
-                fromDateParam,
-                toDateParam,
-                typeParam,
-                pageable
-        );
-
-        List<MovieResponse> content = movieMapper.toResponseList(moviePage.getContent());
-
-        PageResponse<MovieResponse> pageResponse = PageResponse.<MovieResponse>builder()
-                .content(content)
-                .pageNo(moviePage.getNumber())
-                .pageSize(moviePage.getSize())
-                .totalElements(moviePage.getTotalElements())
-                .totalPages(moviePage.getTotalPages())
-                .last(moviePage.isLast())
-                .build();
-
-        return ApiResponse.<PageResponse<MovieResponse>>builder()
-                .code(200)
-                .result(pageResponse)
-                .build();
-    }
-
-    @Override
-    @Transactional
-    public ApiResponse<MovieResponse> updateMovie(Integer id, MovieUpdateRequest request) {
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.MOVIE_NOT_FOUND));
-
-        movieMapper.updateMovie(movie, request);
-
-        // Convert string status to enum if provided
-        if (request.getStatus() != null) {
-            try {
-                movie.setStatus(Movie.Status.valueOf(request.getStatus().toUpperCase()));
-            } catch (IllegalArgumentException e) {
-                throw new AppException(ErrorCode.INVALID_STATUS);
-            }
-        }
-
-        Movie updatedMovie = movieRepository.save(movie);
-        return ApiResponse.<MovieResponse>builder()
-                .code(200)
-                .result(movieMapper.toResponse(updatedMovie))
-                .build();
-    }
-
-    @Override
-    @Transactional
-    public ApiResponse<Void> deleteMovie(Integer id) {
-        if (!movieRepository.existsById(id)) {
-            throw new AppException(ErrorCode.MOVIE_NOT_FOUND);
-        }
-        movieRepository.deleteById(id);
-        return ApiResponse.<Void>builder()
-                .code(200)
-                .message("Movie deleted successfully")
-                .build();
-    }
+    movieRepository.deleteById(id);
+    return ApiResponse.<Void>builder().code(200).message("Movie deleted successfully").build();
+  }
 }

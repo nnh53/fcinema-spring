@@ -6,9 +6,7 @@ import com.react05.fcinema_spring.model.response.Authentication.AuthenticationRe
 import com.react05.fcinema_spring.model.response.Authentication.IntrospectResponse;
 
 public interface AuthenticationService {
-    public IntrospectResponse introspect(IntrospectRequest request);
+  public IntrospectResponse introspect(IntrospectRequest request);
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request);
-
-
+  public AuthenticationResponse authenticate(AuthenticationRequest request);
 }

@@ -8,11 +8,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+    componentModel = "spring",
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PromotionMapper {
-    Promotion toPromotion(PromotionRequest request);
+  Promotion toPromotion(PromotionRequest request);
 
-    PromotionResponse toResponse(Promotion promotion);
+  PromotionResponse toResponse(Promotion promotion);
 
-    void updatePromotion(@MappingTarget Promotion promotion, PromotionUpdateRequest request);
+  void updatePromotion(@MappingTarget Promotion promotion, PromotionUpdateRequest request);
 }

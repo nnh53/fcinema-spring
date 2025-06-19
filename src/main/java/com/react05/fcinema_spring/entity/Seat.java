@@ -12,30 +12,40 @@ import lombok.*;
 @Builder
 @ToString(exclude = "cinemaRoom")
 public class Seat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_id")
-    @JsonBackReference
-    private CinemaRoom cinemaRoom;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "room_id")
+  @JsonBackReference
+  private CinemaRoom cinemaRoom;
 
-    @Column(name = "seat_row")
-    private String row;
-    @Column(name = "seat_column")
-    private String column;
-    private String name;
-    @Enumerated(EnumType.STRING)
-    private SeatType type;
-    @Enumerated(EnumType.STRING)
-    private Status status;
+  @Column(name = "seat_row")
+  private String row;
 
-    public enum Status {
-        AVAILABLE, BOOKED, RESERVED, MAINTENANCE
-    }
+  @Column(name = "seat_column")
+  private String column;
 
-    public enum SeatType {
-        VIP, REGULAR, COUPLE, PATH
-    }
+  private String name;
+
+  @Enumerated(EnumType.STRING)
+  private SeatType type;
+
+  @Enumerated(EnumType.STRING)
+  private Status status;
+
+  public enum Status {
+    AVAILABLE,
+    BOOKED,
+    RESERVED,
+    MAINTENANCE
+  }
+
+  public enum SeatType {
+    VIP,
+    REGULAR,
+    COUPLE,
+    PATH
+  }
 }
