@@ -32,13 +32,13 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
             char colChar = 'A';
             for (int col = 0; col < width; col++) {
                 Seat seat = Seat.builder()
-                    .cinemaRoom(cinemaRoom)
-                    .row(String.valueOf(row))
-                    .column(String.valueOf(colChar))
-                    .name(String.valueOf(colChar)+ row)
-                    .type(Seat.SeatType.REGULAR)
-                    .status(Seat.Status.AVAILABLE)
-                    .build();
+                        .cinemaRoom(cinemaRoom)
+                        .row(String.valueOf(row))
+                        .column(String.valueOf(colChar))
+                        .name(String.valueOf(colChar) + row)
+                        .type(Seat.SeatType.REGULAR)
+                        .status(Seat.Status.AVAILABLE)
+                        .build();
                 seats.add(seat);
                 colChar++;
                 seatRepository.save(seat);
@@ -92,17 +92,17 @@ public class CinemaRoomServiceImpl implements CinemaRoomService {
         CinemaRoom cinemaRoom = cinemaRoomRepository.findById(roomId)
                 .orElseThrow(() -> new AppException(ErrorCode.ROOM_NOT_FOUND));
 
-        if((request.getCapacity() != null && cinemaRoom.getCapacity() != request.getCapacity()) ||
-                    (request.getLength() != null && cinemaRoom.getLength() != request.getLength())||
-                    (request.getWidth() != null && cinemaRoom.getWidth() != request.getWidth())) {
+        if ((request.getCapacity() != null && cinemaRoom.getCapacity() != request.getCapacity()) ||
+                (request.getLength() != null && cinemaRoom.getLength() != request.getLength()) ||
+                (request.getWidth() != null && cinemaRoom.getWidth() != request.getWidth())) {
 
-                    seatRepository.deleteAll(cinemaRoom.getSeats());
-                    cinemaRoomMapper.updateCinemaRoom(cinemaRoom, request);
-                    cinemaRoom.setStatus(CinemaRoom.Status.MAINTENANCE);
-                    cinemaRoom.getSeats().clear();
-                    List<Seat> newSeats = generateDefaultSeats(cinemaRoom, request.getWidth(), request.getLength());
-                    cinemaRoom.getSeats().addAll(newSeats);
-        }else {
+            seatRepository.deleteAll(cinemaRoom.getSeats());
+            cinemaRoomMapper.updateCinemaRoom(cinemaRoom, request);
+            cinemaRoom.setStatus(CinemaRoom.Status.MAINTENANCE);
+            cinemaRoom.getSeats().clear();
+            List<Seat> newSeats = generateDefaultSeats(cinemaRoom, request.getWidth(), request.getLength());
+            cinemaRoom.getSeats().addAll(newSeats);
+        } else {
             cinemaRoomMapper.updateCinemaRoom(cinemaRoom, request);
         }
 

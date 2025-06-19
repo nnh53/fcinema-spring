@@ -2,6 +2,7 @@ package com.react05.fcinema_spring.model.response.MovieAndShowtime;
 
 import com.react05.fcinema_spring.model.response.roomAndSeat.CinemaRoomResponse;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data

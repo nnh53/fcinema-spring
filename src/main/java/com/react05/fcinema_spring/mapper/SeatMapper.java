@@ -10,11 +10,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface SeatMapper {
     Seat toSeat(SeatRequest request);
+
     @Mapping(target = "roomId", source = "cinemaRoom.id")
     SeatResponse toResponse(Seat seat);
+
     List<SeatResponse> toResponseList(List<Seat> seats);
 
     void updateSeat(@MappingTarget Seat entity, SeatRequest request);

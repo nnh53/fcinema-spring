@@ -3,9 +3,7 @@ package com.react05.fcinema_spring.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,10 +13,12 @@ import java.util.List;
 @Builder
 @ToString(exclude = "showtimes")
 public class Movie {
+    @OneToMany
+    @JoinColumn(name = "movie_id")
+    List<Showtime> showtimes;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
     private Integer ageRestrict;
     private LocalDate fromDate;
@@ -31,11 +31,6 @@ public class Movie {
     private String trailer;
     private String type;
     private String description;
-
-    @OneToMany
-    @JoinColumn(name = "movie_id")
-    List<Showtime> showtimes;
-
     @Enumerated(EnumType.STRING)
     private Status status;
 

@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("SELECT m FROM Movie m " +
-           "WHERE (:search IS NULL OR LOWER(m.name) LIKE LOWER(CONCAT('%', :search, '%'))) " +
-           "AND (:fromDate IS NULL OR m.fromDate >= :fromDate) " +
-           "AND (:toDate IS NULL OR m.toDate <= :toDate) " +
-           "AND (:type IS NULL OR m.type = :type)")
+            "WHERE (:search IS NULL OR LOWER(m.name) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+            "AND (:fromDate IS NULL OR m.fromDate >= :fromDate) " +
+            "AND (:toDate IS NULL OR m.toDate <= :toDate) " +
+            "AND (:type IS NULL OR m.type = :type)")
     Page<Movie> findMoviesWithFilters(
             @Param("search") String search,
             @Param("fromDate") LocalDate fromDate,

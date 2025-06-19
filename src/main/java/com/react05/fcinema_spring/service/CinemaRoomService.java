@@ -10,9 +10,13 @@ import java.util.List;
 
 public interface CinemaRoomService {
     ApiResponse<CinemaRoomResponse> createCinemaRoom(CinemaRoomRequest request);
+
     ApiResponse<CinemaRoomResponse> getCinemaRoom(Integer roomId);
+
     ApiResponse<List<CinemaRoomResponse>> getAllCinemaRooms();
+
     ApiResponse<CinemaRoomResponse> updateCinemaRoom(Integer roomId, CinemaRoomUpdateRequest request);
+
     ApiResponse<Void> deleteCinemaRoom(Integer roomId);
 }
 

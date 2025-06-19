@@ -1,5 +1,10 @@
 package com.react05.fcinema_spring.service;
 
+import com.nimbusds.jose.*;
+import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import com.react05.fcinema_spring.entity.User;
 import com.react05.fcinema_spring.exception.AppException;
 import com.react05.fcinema_spring.exception.ErrorCode;
@@ -8,11 +13,6 @@ import com.react05.fcinema_spring.model.request.Authentication.IntrospectRequest
 import com.react05.fcinema_spring.model.response.Authentication.AuthenticationResponse;
 import com.react05.fcinema_spring.model.response.Authentication.IntrospectResponse;
 import com.react05.fcinema_spring.repository.UserRepository;
-import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,7 +34,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AuthenticationServiceImpl implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     UserRepository userRepository;
 
@@ -50,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     @NonFinal
     long REFRESHABLE_DURATION;
 
-    public IntrospectResponse introspect(IntrospectRequest request){
+    public IntrospectResponse introspect(IntrospectRequest request) {
         String token = request.getToken();
         try {
             verifyToken(token);
@@ -63,15 +63,16 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 .valid(true)
                 .build();
     }
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
-        boolean authenticated = passwordEncoder.matches(request.getPassword(),user.getPassword());
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if(!authenticated){
+        if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
 
@@ -94,7 +95,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     .expirationTime(Date.from(Instant.now().plus(VALID_DURATION, ChronoUnit.SECONDS)))
                     .jwtID(UUID.randomUUID().toString())
                     .claim("scope", buildScope(user))
-                    .claim("userId",user.getId())
+                    .claim("userId", user.getId())
                     .build();
 
             // Create Payload
@@ -112,13 +113,15 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             throw new RuntimeException(ex);
         }
     }
-    private String buildScope(User user){
+
+    private String buildScope(User user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-       log.info(user.getRole().name());
-       stringJoiner.add("ROLE_"+(user.getRole().name()));
+        log.info(user.getRole().name());
+        stringJoiner.add("ROLE_" + (user.getRole().name()));
 
         return stringJoiner.toString();
     }
+
     private SignedJWT verifyToken(String token) throws JOSEException, ParseException {
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
 
@@ -126,9 +129,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
         Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
 
-        var verified =signedJWT.verify(verifier);
+        var verified = signedJWT.verify(verifier);
 
-        if(!(verified && expiryTime.after(new Date())))
+        if (!(verified && expiryTime.after(new Date())))
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
         return signedJWT;

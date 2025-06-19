@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface MovieMapper {
-    @Mapping(target = "status", ignore= true)
+    @Mapping(target = "status", ignore = true)
     Movie toMovie(MovieRequest request);
 
     MovieResponse toResponse(Movie movie);

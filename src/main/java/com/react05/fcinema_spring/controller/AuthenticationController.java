@@ -1,12 +1,12 @@
 package com.react05.fcinema_spring.controller;
 
+import com.nimbusds.jose.JOSEException;
 import com.react05.fcinema_spring.model.request.Authentication.AuthenticationRequest;
 import com.react05.fcinema_spring.model.request.Authentication.IntrospectRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.Authentication.AuthenticationResponse;
 import com.react05.fcinema_spring.model.response.Authentication.IntrospectResponse;
 import com.react05.fcinema_spring.service.AuthenticationService;
-import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

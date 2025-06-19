@@ -2,8 +2,6 @@ package com.react05.fcinema_spring.model.request.MovieAndShowtime;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data

@@ -4,6 +4,7 @@ import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
 import com.react05.fcinema_spring.model.request.Promotion.PromotionUpdateRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
+
 import java.util.List;
 
 public interface PromotionService {

@@ -24,10 +24,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     UserMapper userMapper;
+
     @Override
     @Transactional
     public ApiResponse<User> createUser(UserRequest userRequest) {
-        if(userRepository.existsByEmail(userRequest.getEmail())){
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         User user = userMapper.toUser(userRequest);
@@ -92,8 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 }

@@ -1,12 +1,6 @@
 package com.react05.fcinema_spring.model.request.Promotion;
 
 import com.react05.fcinema_spring.entity.Promotion;
-import com.react05.fcinema_spring.exception.ErrorCode;
-
-import io.micrometer.common.lang.Nullable;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -14,10 +14,10 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(1000, "Lỗi chưa được phân loại", HttpStatus.INTERNAL_SERVER_ERROR),
-    USER_EXISTED(1001, "Tên người dùng đã tồn tại",HttpStatus.BAD_REQUEST),
-    USERNAME_INVALID(1002, "Tên người dùng phải chứa ít nhất {min} kí tự ",HttpStatus.BAD_REQUEST),
-    PASSWORD_INVALID(1003, "Mật khẩu phải chứa ít nhất {min} kí tự và nhiều nhất {max} kí tự",HttpStatus.BAD_REQUEST),
-    EMAIL_INVALID(1004,"Email phải đúng dạng @gmail.com", HttpStatus.BAD_REQUEST),
+    USER_EXISTED(1001, "Tên người dùng đã tồn tại", HttpStatus.BAD_REQUEST),
+    USERNAME_INVALID(1002, "Tên người dùng phải chứa ít nhất {min} kí tự ", HttpStatus.BAD_REQUEST),
+    PASSWORD_INVALID(1003, "Mật khẩu phải chứa ít nhất {min} kí tự và nhiều nhất {max} kí tự", HttpStatus.BAD_REQUEST),
+    EMAIL_INVALID(1004, "Email phải đúng dạng @gmail.com", HttpStatus.BAD_REQUEST),
     INVALID_KEY(1005, "Khóa không hợp lệ", HttpStatus.BAD_REQUEST),
     NOT_NULL(1006, "Trường không được để trống", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1007, "Email hoặc mật khẩu không tồn tại", HttpStatus.BAD_REQUEST),

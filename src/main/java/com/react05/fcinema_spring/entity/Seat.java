@@ -34,6 +34,7 @@ public class Seat {
     public enum Status {
         AVAILABLE, BOOKED, RESERVED, MAINTENANCE
     }
+
     public enum SeatType {
         VIP, REGULAR, COUPLE, PATH
     }

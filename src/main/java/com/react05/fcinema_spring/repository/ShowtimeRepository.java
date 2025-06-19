@@ -20,20 +20,20 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Integer> {
     List<Showtime> findByRoom(CinemaRoom room);
 
     @Query("SELECT s FROM Showtime s WHERE s.room = :room AND " +
-           "((s.showDateTime <= :endTime AND s.endDateTime >= :startTime) OR " +
-           "(s.showDateTime <= :endTime AND s.showDateTime >= :startTime) OR " +
-           "(s.endDateTime <= :endTime AND s.endDateTime >= :startTime))")
+            "((s.showDateTime <= :endTime AND s.endDateTime >= :startTime) OR " +
+            "(s.showDateTime <= :endTime AND s.showDateTime >= :startTime) OR " +
+            "(s.endDateTime <= :endTime AND s.endDateTime >= :startTime))")
     List<Showtime> findConflictingShowtimes(
             @Param("room") CinemaRoom room,
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime);
 
     @Query("SELECT s FROM Showtime s " +
-           "WHERE (:movieId IS NULL OR s.movie.id = :movieId) " +
-           "AND (:roomId IS NULL OR s.room.id = :roomId) " +
-           "AND (:startDate IS NULL OR s.showDateTime >= :startDate) " +
-           "AND (:endDate IS NULL OR s.showDateTime <= :endDate) " +
-           "AND (:status IS NULL OR s.status = :status)")
+            "WHERE (:movieId IS NULL OR s.movie.id = :movieId) " +
+            "AND (:roomId IS NULL OR s.room.id = :roomId) " +
+            "AND (:startDate IS NULL OR s.showDateTime >= :startDate) " +
+            "AND (:endDate IS NULL OR s.showDateTime <= :endDate) " +
+            "AND (:status IS NULL OR s.status = :status)")
     Page<Showtime> findWithFilters(
             @Param("movieId") Integer movieId,
             @Param("roomId") Integer roomId,
@@ -41,4 +41,5 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Integer> {
             @Param("endDate") LocalDateTime endDate,
             @Param("status") Showtime.Status status,
             Pageable pageable);
+
 }

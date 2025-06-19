@@ -24,7 +24,6 @@ public class SeatServiceImpl implements SeatService {
     private final SeatMapper seatMapper;
 
 
-
     @Override
     public ApiResponse<SeatResponse> getSeatById(Integer seatId) {
         Seat seat = seatRepository.findById(seatId)

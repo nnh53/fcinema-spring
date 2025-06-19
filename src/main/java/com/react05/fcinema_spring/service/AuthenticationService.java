@@ -1,6 +1,5 @@
 package com.react05.fcinema_spring.service;
 
-import com.react05.fcinema_spring.entity.User;
 import com.react05.fcinema_spring.model.request.Authentication.AuthenticationRequest;
 import com.react05.fcinema_spring.model.request.Authentication.IntrospectRequest;
 import com.react05.fcinema_spring.model.response.Authentication.AuthenticationResponse;

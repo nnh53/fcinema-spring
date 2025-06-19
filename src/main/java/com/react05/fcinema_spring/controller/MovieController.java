@@ -2,14 +2,15 @@ package com.react05.fcinema_spring.controller;
 
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieRequest;
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.MovieUpdateRequest;
-import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.ApiResponse;
+import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.PageResponse;
 import com.react05.fcinema_spring.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<MovieResponse>> create(@Valid @RequestBody MovieRequest request){
+    public ResponseEntity<ApiResponse<MovieResponse>> create(@Valid @RequestBody MovieRequest request) {
         return ResponseEntity.ok(movieService.createMovie(request));
     }
 

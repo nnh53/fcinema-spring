@@ -2,8 +2,8 @@ package com.react05.fcinema_spring.controller;
 
 import com.react05.fcinema_spring.model.request.MovieAndShowtime.ShowtimeRequest;
 import com.react05.fcinema_spring.model.response.ApiResponse;
-import com.react05.fcinema_spring.model.response.PageResponse;
 import com.react05.fcinema_spring.model.response.MovieAndShowtime.ShowtimeResponse;
+import com.react05.fcinema_spring.model.response.PageResponse;
 import com.react05.fcinema_spring.service.ShowtimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;

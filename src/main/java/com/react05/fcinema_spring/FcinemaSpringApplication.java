@@ -12,14 +12,14 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class FcinemaSpringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FcinemaSpringApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FcinemaSpringApplication.class, args);
+    }
 
-	@Bean
-	ApplicationRunner applicationRunner(Environment environment) {
-		return args -> {
-			log.info("our database URL connection will be " + environment.getProperty("spring.datasource.url"));
-		};
-	}
+    @Bean
+    ApplicationRunner applicationRunner(Environment environment) {
+        return args -> {
+            log.info("our database URL connection will be " + environment.getProperty("spring.datasource.url"));
+        };
+    }
 }

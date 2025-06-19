@@ -9,8 +9,12 @@ import java.util.List;
 
 public interface UserService {
     ApiResponse<User> createUser(UserRequest user);
+
     ApiResponse<User> getUserById(String id);
+
     ApiResponse<Void> updateUser(String id, UserUpdate user);
+
     ApiResponse<Void> deleteUser(String id);
+
     ApiResponse<List<User>> findAllUsers();
 }

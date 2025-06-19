@@ -1,7 +1,6 @@
 package com.react05.fcinema_spring.model.request.Promotion;
 
 import com.react05.fcinema_spring.entity.Promotion;
-import com.react05.fcinema_spring.exception.ErrorCode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

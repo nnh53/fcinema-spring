@@ -1,10 +1,14 @@
 package com.react05.fcinema_spring.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,17 +24,17 @@ public class Promotion {
     private String title;
     private PromotionType type;
     private Double minPurchase = 0.0;
-    private Double discountValue= 0.0;
+    private Double discountValue = 0.0;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String description;
     private PromotionStatus status;
 
-    public enum PromotionStatus{
+    public enum PromotionStatus {
         ACTIVE, INACTIVE
     }
 
-    public enum PromotionType{
+    public enum PromotionType {
         PERCENTAGE, AMOUNT
     }
 }

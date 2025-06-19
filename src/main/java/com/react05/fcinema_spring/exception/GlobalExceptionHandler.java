@@ -21,20 +21,22 @@ public class GlobalExceptionHandler {
     private static final String MAX_ATTRIBUTE = "max";
 
     @ExceptionHandler(value = RuntimeException.class)
-    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception){
+    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
         apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
     }
+
     @ExceptionHandler(value = AppException.class)
-    ResponseEntity<ApiResponse> handlingApptimeException(AppException exception){
+    ResponseEntity<ApiResponse> handlingApptimeException(AppException exception) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(exception.getErrorCode().getCode());
         apiResponse.setMessage(exception.getErrorCode().getMessage());
         HttpStatusCode status = exception.getErrorCode().getHttpStatusCode();
         return ResponseEntity.status(status).body(apiResponse);
     }
+
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<Map<String, List<ApiResponse>>> handlingValidationException(MethodArgumentNotValidException exception) {
         List<ApiResponse> errors = exception.getBindingResult().getFieldErrors().stream().map(fieldError -> {
@@ -56,7 +58,7 @@ public class GlobalExceptionHandler {
             String errorMessage = Objects.nonNull(attributes) ? formatMessage(errorCode.getMessage(), attributes) : errorCode.getMessage();
 
             errorMessage = fieldName + ": " + errorMessage;
-            return  ApiResponse.builder()
+            return ApiResponse.builder()
                     .code(errorCode.getCode())
                     .result(errorMessage)
                     .build();
@@ -64,6 +66,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errors", errors));
     }
+
     private String formatMessage(String message, Map<String, Object> attributes) {
         for (Map.Entry<String, Object> entry : attributes.entrySet()) {
             message = message.replace("{" + entry.getKey() + "}", entry.getValue().toString());

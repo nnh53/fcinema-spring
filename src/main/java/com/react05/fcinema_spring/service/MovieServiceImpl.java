@@ -11,13 +11,11 @@ import com.react05.fcinema_spring.model.response.MovieAndShowtime.MovieResponse;
 import com.react05.fcinema_spring.model.response.PageResponse;
 import com.react05.fcinema_spring.repository.MovieRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +28,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     @Transactional
-    public ApiResponse<MovieResponse> createMovie( MovieRequest request) {
+    public ApiResponse<MovieResponse> createMovie(MovieRequest request) {
         Movie movie = movieMapper.toMovie(request);
 
         // Convert string status to enum
@@ -81,8 +79,8 @@ public class MovieServiceImpl implements MovieService {
 
         // Handle null or empty values
         String searchParam = (search != null && !search.trim().isEmpty()) ? search : null;
-        LocalDate fromDateParam = (fromDate != null && !fromDate.trim().isEmpty()) ?  LocalDate.parse(fromDate) : null;
-        LocalDate toDateParam = (toDate != null && !toDate.trim().isEmpty()) ? LocalDate.parse(toDate): null;
+        LocalDate fromDateParam = (fromDate != null && !fromDate.trim().isEmpty()) ? LocalDate.parse(fromDate) : null;
+        LocalDate toDateParam = (toDate != null && !toDate.trim().isEmpty()) ? LocalDate.parse(toDate) : null;
         String typeParam = (type != null && !type.trim().isEmpty()) ? type : null;
 
 
