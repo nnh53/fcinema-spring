@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="com.chylex.intellij.inspectionlens" />
+    <plugin id="com.github.lppedd.idea-conventional-commit" />
+    <plugin id="google-java-format" />
+    <plugin id="org.editorconfig.editorconfigjetbrains" />
+    <plugin id="zielu.gittoolbox" />
+  </component>
+</project>
