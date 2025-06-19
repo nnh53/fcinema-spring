@@ -3,16 +3,18 @@ package com.react05.fcinema_spring.controller;
 import com.react05.fcinema_spring.entity.User;
 import com.react05.fcinema_spring.model.request.User.UserRequest;
 import com.react05.fcinema_spring.model.request.User.UserUpdate;
-import com.react05.fcinema_spring.model.response.ApiResponse;
+import com.react05.fcinema_spring.model.response.ApiErrorResponse;
+import com.react05.fcinema_spring.model.response.ApiResponse ;
 import com.react05.fcinema_spring.service.UserService;
-import com.react05.fcinema_spring.service.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     UserService userService;
+    @Operation(summary = "Create a new user")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successfully",
+                    content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "description in result",
+                    content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
     @PostMapping
     public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody UserRequest userRequest) {
+        var result = userService.createUser(userRequest);
         return ResponseEntity.ok(userService.createUser(userRequest));
     }
 

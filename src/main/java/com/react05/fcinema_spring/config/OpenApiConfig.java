@@ -1,5 +1,7 @@
 package com.react05.fcinema_spring.config;
 
+import com.react05.fcinema_spring.model.response.ApiResponse;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -29,6 +31,7 @@ public class OpenApiConfig {
                 .servers(List.of(new Server().url(serverUrl).description(serverName)))
                 .components(
                         new Components()
+                                .addSchemas("CustomApiResponse", new Schema<ApiResponse>())
                                 .addSecuritySchemes(
                                         "bearerAuth",
                                         new SecurityScheme()
