@@ -5,9 +5,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ShowtimeRequest {
-    private Integer movieId;
+public class ShowtimeUpdateRequest {
     private LocalDateTime showDateTime;
-    private Integer roomId;
     private LocalDateTime endDateTime;
+    private String status;
 }

@@ -1,38 +1,42 @@
 package com.react05.fcinema_spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"movie", "room"})
+@ToString(exclude = {"movie", "cinemaRoom"})
 public class Showtime {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @ManyToOne
-  @JoinColumn(name = "movie_id")
-  private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
-  private LocalDateTime showDateTime;
+    private LocalDateTime showDateTime;
 
-  @ManyToOne
-  @JoinColumn(name = "room_id")
-  private CinemaRoom room;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
+    @JsonBackReference
+    private CinemaRoom cinemaRoom;
 
-  private LocalDateTime endDateTime;
+    private LocalDateTime endDateTime;
 
-  @Enumerated(EnumType.STRING)
-  private Status status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-  public enum Status {
-    SCHEDULE,
-    SCREENING,
-    COMPLETED
-  }
+    public enum Status {
+        SCHEDULE,
+        SCREENING,
+        COMPLETED,
+        CANCELLED
+    }
 }

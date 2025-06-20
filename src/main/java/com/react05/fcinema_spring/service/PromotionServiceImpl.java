@@ -10,80 +10,110 @@ import com.react05.fcinema_spring.model.response.ApiResponse;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import com.react05.fcinema_spring.repository.PromotionRepository;
 import jakarta.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PromotionServiceImpl implements PromotionService {
-  private final PromotionRepository promotionRepository;
-  private final PromotionMapper promotionMapper;
+    private final PromotionRepository promotionRepository;
+    private final PromotionMapper promotionMapper;
 
-  @Override
-  @Transactional
-  public ApiResponse<PromotionResponse> createPromotion(PromotionRequest request) {
-    Promotion promotion = promotionMapper.toPromotion(request);
-    PromotionResponse response = promotionMapper.toResponse(promotionRepository.save(promotion));
-    return ApiResponse.<PromotionResponse>builder()
-        .code(200)
-        .message("Promotion created successfully")
-        .result(response)
-        .build();
-  }
+    @Override
+    @Transactional
+    public ApiResponse<PromotionResponse> createPromotion(PromotionRequest request) {
+        Promotion promotion = promotionMapper.toPromotion(request);
 
-  @Override
-  public ApiResponse<PromotionResponse> getPromotion(Integer id) {
-    Promotion promotion =
-        promotionRepository
-            .findById(id)
-            .orElseThrow(() -> new AppException(ErrorCode.PROMOTION_NOT_FOUND));
-    PromotionResponse response = promotionMapper.toResponse(promotion);
-    return ApiResponse.<PromotionResponse>builder()
-        .code(200)
-        .message("Promotion fetched successfully")
-        .result(response)
-        .build();
-  }
+        try {
 
-  @Override
-  public ApiResponse<List<PromotionResponse>> getAllPromotions() {
-    List<PromotionResponse> responses =
-        promotionRepository.findAll().stream()
-            .map(promotionMapper::toResponse)
-            .collect(Collectors.toList());
-    return ApiResponse.<List<PromotionResponse>>builder()
-        .code(200)
-        .message("All promotions fetched successfully")
-        .result(responses)
-        .build();
-  }
+            Promotion.PromotionStatus status = Promotion.PromotionStatus.valueOf(request.getStatus());
+            Promotion.PromotionType type = Promotion.PromotionType.valueOf(request.getType());
 
-  @Override
-  @Transactional
-  public ApiResponse<PromotionResponse> updatePromotion(
-      Integer id, PromotionUpdateRequest request) {
-    Promotion promotion =
-        promotionRepository
-            .findById(id)
-            .orElseThrow(() -> new AppException(ErrorCode.PROMOTION_NOT_FOUND));
-    promotionMapper.updatePromotion(promotion, request);
-    PromotionResponse response = promotionMapper.toResponse(promotionRepository.save(promotion));
-    return ApiResponse.<PromotionResponse>builder()
-        .code(200)
-        .message("Promotion updated successfully")
-        .result(response)
-        .build();
-  }
+            promotion.setStatus(status);
+            promotion.setType(type);
+        } catch (IllegalArgumentException e) {
+            throw new AppException(ErrorCode.INVALID_PROMOTION_STATUS_OR_TYPE);
+        }
 
-  @Override
-  @Transactional
-  public ApiResponse<Void> deletePromotion(Integer id) {
-    if (!promotionRepository.existsById(id)) {
-      throw new AppException(ErrorCode.PROMOTION_NOT_FOUND);
+        PromotionResponse response = promotionMapper.toResponse(promotionRepository.save(promotion));
+        return ApiResponse.<PromotionResponse>builder()
+                .code(200)
+                .message("Promotion created successfully")
+                .result(response)
+                .build();
     }
-    promotionRepository.deleteById(id);
-    return ApiResponse.<Void>builder().code(200).message("Promotion deleted successfully").build();
-  }
+
+    @Override
+    public ApiResponse<PromotionResponse> getPromotion(Integer id) {
+        Promotion promotion =
+                promotionRepository
+                        .findById(id)
+                        .orElseThrow(() -> new AppException(ErrorCode.PROMOTION_NOT_FOUND));
+        PromotionResponse response = promotionMapper.toResponse(promotion);
+        return ApiResponse.<PromotionResponse>builder()
+                .code(200)
+                .message("Promotion fetched successfully")
+                .result(response)
+                .build();
+    }
+
+    @Override
+    public ApiResponse<List<PromotionResponse>> getAllPromotions() {
+        List<PromotionResponse> responses =
+                promotionRepository.findAll().stream()
+                        .map(promotionMapper::toResponse)
+                        .collect(Collectors.toList());
+        return ApiResponse.<List<PromotionResponse>>builder()
+                .code(200)
+                .message("All promotions fetched successfully")
+                .result(responses)
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public ApiResponse<PromotionResponse> updatePromotion(
+            Integer id, PromotionUpdateRequest request) {
+        Promotion promotion =
+                promotionRepository
+                        .findById(id)
+                        .orElseThrow(() -> new AppException(ErrorCode.PROMOTION_NOT_FOUND));
+        promotionMapper.updatePromotion(promotion, request);
+        if (request.getType() != null) {
+            try {
+                Promotion.PromotionType type = Promotion.PromotionType.valueOf(request.getType());
+                promotion.setType(type);
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_PROMOTION_STATUS_OR_TYPE);
+            }
+
+        }
+        if (request.getStatus() != null) {
+            try {
+                Promotion.PromotionStatus status = Promotion.PromotionStatus.valueOf(request.getStatus());
+                promotion.setStatus(status);
+            } catch (IllegalArgumentException e) {
+                throw new AppException(ErrorCode.INVALID_PROMOTION_STATUS_OR_TYPE);
+            }
+        }
+        PromotionResponse response = promotionMapper.toResponse(promotionRepository.save(promotion));
+        return ApiResponse.<PromotionResponse>builder()
+                .code(200)
+                .message("Promotion updated successfully")
+                .result(response)
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public ApiResponse<Void> deletePromotion(Integer id) {
+        if (!promotionRepository.existsById(id)) {
+            throw new AppException(ErrorCode.PROMOTION_NOT_FOUND);
+        }
+        promotionRepository.deleteById(id);
+        return ApiResponse.<Void>builder().code(200).message("Promotion deleted successfully").build();
+    }
 }

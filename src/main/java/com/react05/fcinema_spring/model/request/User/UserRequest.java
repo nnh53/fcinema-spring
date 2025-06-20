@@ -13,24 +13,24 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequest {
 
-  @NotBlank(message = "NOT_BLANK")
-  @Email(message = "EMAIL_INVALID")
-  String email;
+    @NotBlank(message = "NOT_BLANK")
+    @Email(message = "EMAIL_INVALID")
+    String email;
 
-  @NotBlank(message = "NAME_INVALID")
-  String fullName;
+    @NotBlank(message = "NAME_INVALID")
+    String fullName;
 
-  @NotBlank(message = "NOT_BLANK")
-  @Size(min = 8, max = 20, message = "PASSWORD_INVALID")
-  String password;
+    @NotBlank(message = "NOT_BLANK")
+    @Size(min = 8, max = 20, message = "PASSWORD_INVALID")
+    String password;
 
-  String phone;
+    String phone;
 
-  String address;
+    String address;
 
-  String avatar;
+    String avatar;
 
-  String role;
+    String role;
 
-  Boolean active;
+    Boolean active;
 }

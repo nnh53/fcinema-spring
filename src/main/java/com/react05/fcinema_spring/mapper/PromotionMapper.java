@@ -5,16 +5,23 @@ import com.react05.fcinema_spring.model.request.Promotion.PromotionRequest;
 import com.react05.fcinema_spring.model.request.Promotion.PromotionUpdateRequest;
 import com.react05.fcinema_spring.model.response.promotion.PromotionResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(
-    componentModel = "spring",
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PromotionMapper {
-  Promotion toPromotion(PromotionRequest request);
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "type", ignore = true)
+    Promotion toPromotion(PromotionRequest request);
 
-  PromotionResponse toResponse(Promotion promotion);
+    PromotionResponse toResponse(Promotion promotion);
 
-  void updatePromotion(@MappingTarget Promotion promotion, PromotionUpdateRequest request);
+    List<PromotionResponse> toResponseList(List<Promotion> promotions);
+
+    void updatePromotion(@MappingTarget Promotion promotion, PromotionUpdateRequest request);
 }
